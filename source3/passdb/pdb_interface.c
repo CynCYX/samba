@@ -621,22 +621,11 @@ static NTSTATUS pdb_default_delete_user(struct pdb_methods *methods,
 NTSTATUS pdb_delete_user(TALLOC_CTX *mem_ctx, struct samu *sam_acct)
 {
 	struct pdb_methods *pdb = pdb_get_methods();
-	uid_t uid = -1;
 	NTSTATUS status;
 	const struct dom_sid *user_sid;
 	char *msg_data;
 
 	user_sid = pdb_get_user_sid(sam_acct);
-
-	/* sanity check to make sure we don't delete root */
-
-	if ( !sid_to_uid(user_sid, &uid ) ) {
-		return NT_STATUS_NO_SUCH_USER;
-	}
-
-	if ( uid == 0 ) {
-		return NT_STATUS_ACCESS_DENIED;
-	}
 
 	memcache_delete(NULL,
 			PDB_GETPWSID_CACHE,
@@ -693,20 +682,9 @@ NTSTATUS pdb_delete_sam_account(struct samu *sam_acct)
 NTSTATUS pdb_rename_sam_account(struct samu *oldname, const char *newname)
 {
 	struct pdb_methods *pdb = pdb_get_methods();
-	uid_t uid;
 	NTSTATUS status;
 
 	memcache_flush(NULL, PDB_GETPWSID_CACHE);
-
-	/* sanity check to make sure we don't rename root */
-
-	if ( !sid_to_uid( pdb_get_user_sid(oldname), &uid ) ) {
-		return NT_STATUS_NO_SUCH_USER;
-	}
-
-	if ( uid == 0 ) {
-		return NT_STATUS_ACCESS_DENIED;
-	}
 
 	status = pdb->rename_sam_account(pdb, oldname, newname);
 
