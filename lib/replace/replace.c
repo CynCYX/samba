@@ -948,6 +948,20 @@ void rep_setproctitle_init(int argc, char *argv[], char *envp[])
 }
 #endif
 
+#ifndef HAVE_SWAB
+void rep_swab(const void *from, void *to, ssize_t n) {
+  ssize_t i;
+  if (n <= 0)
+    return;
+
+  n >>= 1;
+  for (i = 0; i < n; ++i) {
+    uint16_t src = *((uint16_t*)from+i);
+    *((uint16_t*)to+i) = (((src & 0x00ffU) << 8) | ((src & 0xff00U) >> 8));
+  }
+}
+#endif /* HAVE_SWAB */
+
 #ifndef HAVE_MEMSET_S
 # ifndef RSIZE_MAX
 #  define RSIZE_MAX (SIZE_MAX >> 1)

@@ -116,6 +116,7 @@ static int count_commas(const char *str)
 {
 	int num_commas = 0;
 	const char *comma = str;
+	if (!str) return 0;
 
 	while ((comma = strchr(comma, ',')) != NULL) {
 		comma += 1;

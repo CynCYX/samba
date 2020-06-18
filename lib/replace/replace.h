@@ -982,6 +982,11 @@ ssize_t rep_copy_file_range(int fd_in,
 # endif /* HAVE_FALLTHROUGH_ATTRIBUTE */
 #endif /* FALL_THROUGH */
 
+#ifndef HAVE_SWAB
+#define swab rep_swab
+void rep_swab(const void *from, void *to, ssize_t n);
+#endif
+
 bool nss_wrapper_enabled(void);
 bool nss_wrapper_hosts_enabled(void);
 bool socket_wrapper_enabled(void);
