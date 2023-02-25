@@ -76,7 +76,7 @@ int interact_prompt(const char* msg, const char* acc, char def) {
 
 
 char* interact_edit(TALLOC_CTX* mem_ctx, const char* str) {
-	char fname[] = "/tmp/net_idmap_check.XXXXXX";
+	char fname[] = "@TERMUX_PREFIX@/tmp/net_idmap_check.XXXXXX";
 	char buf[128];
 	char* ret = NULL;
 	FILE* file;

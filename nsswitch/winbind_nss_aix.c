@@ -63,7 +63,7 @@ static void logit(const char *format, ...)
 	if (!debug_enabled) {
 		return;
 	}
-	f = fopen("/tmp/WINBIND_DEBUG.log", "a");
+	f = fopen("@TERMUX_PREFIX@/tmp/WINBIND_DEBUG.log", "a");
 	if (!f) return;
 	va_start(ap, format);
 	vfprintf(f, format, ap);

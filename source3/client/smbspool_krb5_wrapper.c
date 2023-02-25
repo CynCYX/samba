@@ -309,7 +309,7 @@ int main(int argc, char *argv[])
 	}
 
 	/* Fallback to a FILE ccache */
-	snprintf(gen_cc, sizeof(gen_cc), "FILE:/tmp/krb5cc_%u", uid);
+	snprintf(gen_cc, sizeof(gen_cc), "FILE:@TERMUX_PREFIX@/tmp/krb5cc_%u", uid);
 
 create_env:
 	/*

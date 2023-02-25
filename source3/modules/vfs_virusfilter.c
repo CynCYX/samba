@@ -301,7 +301,7 @@ static int virusfilter_vfs_connect(
 
 	quarantine_dir = lp_parm_const_string(
 		snum, "virusfilter", "quarantine directory",
-		tmp ? tmp : "/tmp/.quarantine");
+		tmp ? tmp : "@TERMUX_PREFIX@/tmp/.quarantine");
 	if (quarantine_dir != NULL) {
 		config->quarantine_dir = talloc_strdup(config, quarantine_dir);
 		if (config->quarantine_dir == NULL) {

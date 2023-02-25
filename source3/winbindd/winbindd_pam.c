@@ -573,11 +573,11 @@ static const char *generate_krb5_ccache(TALLOC_CTX *mem_ctx,
 	if (uid != -1) {
 		if (strequal(type, "FILE")) {
 			gen_cc = talloc_asprintf(
-				mem_ctx, "FILE:/tmp/krb5cc_%d", uid);
+				mem_ctx, "FILE:@TERMUX_PREFIX@/tmp/krb5cc_%d", uid);
 		}
 		if (strequal(type, "WRFILE")) {
 			gen_cc = talloc_asprintf(
-				mem_ctx, "WRFILE:/tmp/krb5cc_%d", uid);
+				mem_ctx, "WRFILE:@TERMUX_PREFIX@/tmp/krb5cc_%d", uid);
 		}
 		if (strequal(type, "KEYRING")) {
 			gen_cc = talloc_asprintf(

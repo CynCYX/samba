@@ -625,7 +625,7 @@ static int cli_credentials_new_ccache(struct cli_credentials *cred,
 		must_free_cc_name = true;
 
 		if (lpcfg_parm_bool(lp_ctx, NULL, "credentials", "krb5_cc_file", false)) {
-			ccache_name = talloc_asprintf(ccc, "FILE:/tmp/krb5_cc_samba_%u_%p", 
+			ccache_name = talloc_asprintf(ccc, "FILE:@TERMUX_PREFIX@/tmp/krb5_cc_samba_%u_%p",
 						      (unsigned int)getpid(), ccc);
 		} else {
 			ccache_name = talloc_asprintf(ccc, "MEMORY:%p", 

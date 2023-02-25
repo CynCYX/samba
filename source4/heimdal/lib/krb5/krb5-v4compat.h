@@ -108,7 +108,7 @@ struct credentials {
 #ifdef KRB5_USE_PATH_TOKENS
 #define TKT_ROOT "%{TEMP}/tkt"
 #else
-#define TKT_ROOT "/tmp/tkt"
+#define TKT_ROOT "@TERMUX_PREFIX@/tmp/tkt"
 #endif
 #endif
 

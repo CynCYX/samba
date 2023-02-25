@@ -1418,7 +1418,7 @@ static void smb_dump(const char *name, int type, const char *data)
 	len = smb_len_tcp(data)+4;
 	for (i=1;i<100;i++) {
 		fname = talloc_asprintf(talloc_tos(),
-				"/tmp/%s.%d.%s",
+				"@TERMUX_PREFIX@/tmp/%s.%d.%s",
 				name,
 				i,
 				type ? "req" : "resp");

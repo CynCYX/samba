@@ -66,12 +66,12 @@ int main(int argc, const char *argv[])
 			.instance.filter = UINT32_MAX,
 			.instance.subdir_filter = UINT32_MAX
 		};
-		char path[64];
+		char path[256];
 		size_t len;
 		struct iovec iov[2];
 		NTSTATUS status;
 
-		len = snprintf(path, sizeof(path), "/tmp%u", i);
+		len = snprintf(path, sizeof(path), "@TERMUX_PREFIX@/tmp%u", i);
 
 		iov[0].iov_base = &msg;
 		iov[0].iov_len = offsetof(struct notify_rec_change_msg, path);

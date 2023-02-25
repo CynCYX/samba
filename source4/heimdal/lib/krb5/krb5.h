@@ -351,7 +351,7 @@ struct krb5_cc_ops;
 #ifdef KRB5_USE_PATH_TOKENS
 #define KRB5_DEFAULT_CCFILE_ROOT "%{TEMP}/krb5cc_"
 #else
-#define KRB5_DEFAULT_CCFILE_ROOT "/tmp/krb5cc_"
+#define KRB5_DEFAULT_CCFILE_ROOT "@TERMUX_PREFIX@/tmp/krb5cc_"
 #endif
 
 #define KRB5_DEFAULT_CCROOT "FILE:" KRB5_DEFAULT_CCFILE_ROOT

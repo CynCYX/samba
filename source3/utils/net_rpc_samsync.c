@@ -47,7 +47,7 @@ int rpc_vampire_usage(struct net_context *c, int argc, const char **argv)
 		   "\t to pull accounts from a remote PDC where we are a BDC\n"
 		   "\t\t no args puts accounts in local passdb from smb.conf\n"
 		   "\t\t ldif - put accounts in ldif format (file defaults to "
-		   "/tmp/tmp.ldif)\n"
+		   "@TERMUX_PREFIX@/tmp/tmp.ldif)\n"
 		   "\t\t keytab - put account passwords in krb5 keytab "
 		   "(defaults to system keytab)\n"));
 

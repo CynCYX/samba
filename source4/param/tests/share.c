@@ -50,7 +50,7 @@ static bool test_create(struct torture_context *tctx,
 	bool found = false;
 	struct share_info inf[] = { 
 		{ SHARE_INFO_STRING, SHARE_TYPE, discard_const_p(void *, "IPC$") },
-		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "/tmp/bla") }
+		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "@TERMUX_PREFIX@/tmp/bla") }
 	};
 	NTSTATUS status;
 
@@ -126,7 +126,7 @@ static bool test_share_remove(struct torture_context *tctx,
 	struct share_context *ctx = (struct share_context *)discard_const(tcase_data);
 	struct share_info inf[] = { 
 		{ SHARE_INFO_STRING, SHARE_TYPE, discard_const_p(void *, "IPC$") },
-		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "/tmp/bla") }
+		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "@TERMUX_PREFIX@/tmp/bla") }
 	};
 	NTSTATUS status;
 
@@ -149,7 +149,7 @@ static bool test_double_create(struct torture_context *tctx,
 	struct share_context *ctx = (struct share_context *)discard_const(tcase_data);
 	struct share_info inf[] = { 
 		{ SHARE_INFO_STRING, SHARE_TYPE, discard_const_p(void *, "IPC$") },
-		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "/tmp/bla") }
+		{ SHARE_INFO_STRING, SHARE_PATH, discard_const_p(void *, "@TERMUX_PREFIX@/tmp/bla") }
 	};
 	NTSTATUS status;
 

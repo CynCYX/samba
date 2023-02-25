@@ -14,12 +14,12 @@
 void dump_pwent(char *id)
 {
     struct passwd *pw;
-    char fname[255];
+    char fname[512];
     FILE *fptr;
 
     /* Open results file */
 
-    sprintf(fname, "/tmp/getpwent_r-%s.out-%d", id, getpid());
+    sprintf(fname, "@TERMUX_PREFIX@/tmp/getpwent_r-%s.out-%d", id, getpid());
 
     if ((fptr = fopen(fname, "w")) == 0) {
         fprintf(stderr, "ERROR: could not open file %s: %s\n", fname,

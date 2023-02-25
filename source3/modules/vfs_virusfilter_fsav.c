@@ -23,7 +23,7 @@
 #ifdef FSAV_DEFAULT_SOCKET_PATH
 #  define VIRUSFILTER_DEFAULT_SOCKET_PATH	FSAV_DEFAULT_SOCKET_PATH
 #else
-#  define VIRUSFILTER_DEFAULT_SOCKET_PATH	"/tmp/.fsav-0"
+#  define VIRUSFILTER_DEFAULT_SOCKET_PATH	"@TERMUX_PREFIX@/tmp/.fsav-0"
 #endif
 
 /* Default values for module-specific configuration variables */

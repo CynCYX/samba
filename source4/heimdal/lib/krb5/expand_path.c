@@ -287,11 +287,11 @@ _expand_temp_folder(krb5_context context, PTYPE param, const char *postfix, char
     const char *p = NULL;
 
     if (issuid())
-	p = getenv("TEMP");
+	p = getenv("TMPDIR");
     if (p)
 	*ret = strdup(p);
     else
-	*ret = strdup("/tmp");
+	*ret = strdup("@TERMUX_PREFIX@/tmp");
     if (*ret == NULL)
 	return ENOMEM;
     return 0;

@@ -41,7 +41,7 @@ static struct {
 	pid_t helper_pid;
 	int socket;
 } globals = {
-	.socketname = "/tmp/test.sock"
+	.socketname = "@TERMUX_PREFIX@/tmp/test.sock"
 };
 
 

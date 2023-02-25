@@ -218,7 +218,7 @@ static int do_edit(struct ldb_context *ldb, struct ldb_message **msgs1,
 {
 	int fd, ret;
 	FILE *f;
-	char file_template[] = "/tmp/ldbedit.XXXXXX";
+	char file_template[] = "@TERMUX_PREFIX@/tmp/ldbedit.XXXXXX";
 	char *cmd;
 	struct ldb_ldif *ldif;
 	struct ldb_message **msgs2 = NULL;

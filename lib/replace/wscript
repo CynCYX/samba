@@ -788,8 +788,8 @@ syscall(SYS_copy_file_range,0,NULL,0,NULL,0,0);
 
     conf.CHECK_CODE('''
                     struct stat st;
-                    char tpl[20]="/tmp/test.XXXXXX";
-                    char tpl2[20]="/tmp/test.XXXXXX";
+                    char tpl[51]="@TERMUX_PREFIX@/tmp/test.XXXXXX";
+                    char tpl2[51]="@TERMUX_PREFIX@/tmp/test.XXXXXX";
                     int fd = mkstemp(tpl);
                     int fd2 = mkstemp(tpl2);
                     if (fd == -1) {
@@ -803,7 +803,7 @@ syscall(SYS_copy_file_range,0,NULL,0,NULL,0,0);
                     unlink(tpl2);
                     if (fstat(fd, &st) != 0) exit(1);
                     if ((st.st_mode & 0777) != 0600) exit(1);
-                    if (strcmp(tpl, "/tmp/test.XXXXXX") == 0) {
+                    if (strcmp(tpl, "@TERMUX_PREFIX@/tmp/test.XXXXXX") == 0) {
                           exit(1);
                     }
                     if (strcmp(tpl, tpl2) == 0) {

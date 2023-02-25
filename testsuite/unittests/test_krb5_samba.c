@@ -37,7 +37,7 @@ static void test_smb_krb5_kt_open(void **state)
 	krb5_context context = *state;
 	krb5_keytab keytab = NULL;
 	krb5_error_code code;
-	char keytab_template[] = "/tmp/keytab.XXXXXX";
+	char keytab_template[] = "@TERMUX_PREFIX@/tmp/keytab.XXXXXX";
 	int fd;
 
 	fd = mkstemp(keytab_template);
@@ -59,7 +59,7 @@ static void test_smb_krb5_kt_open_file(void **state)
 	krb5_context context = *state;
 	krb5_keytab keytab = NULL;
 	krb5_error_code code;
-	char keytab_template[] = "/tmp/keytab.XXXXXX";
+	char keytab_template[] = "@TERMUX_PREFIX@/tmp/keytab.XXXXXX";
 	char keytab_file[6 + strlen(keytab_template)];
 	int fd;
 

@@ -1158,7 +1158,7 @@ out:
 
 static void pwrap_init(void)
 {
-	char tmp_config_dir[] = "/tmp/pam.X";
+	char tmp_config_dir[] = "@TERMUX_PREFIX@/tmp/pam.X";
 	size_t len = strlen(tmp_config_dir);
 	const char *env;
 	struct stat sb;

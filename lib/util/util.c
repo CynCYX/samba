@@ -62,7 +62,7 @@ _PUBLIC_ const char *tmpdir(void)
 	char *p;
 	if ((p = getenv("TMPDIR")))
 		return p;
-	return "/tmp";
+	return "@TERMUX_PREFIX@/tmp";
 }
 
 

@@ -208,7 +208,7 @@ static bool torture_smbconf_txt(void)
 {
 	sbcErr err;
 	bool ret = true;
-	const char *filename = "/tmp/smb.conf.smbconf_testsuite";
+	const char *filename = "@TERMUX_PREFIX@/tmp/smb.conf.smbconf_testsuite";
 	struct smbconf_ctx *conf_ctx = NULL;
 	TALLOC_CTX *mem_ctx = talloc_stackframe();
 

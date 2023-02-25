@@ -2514,12 +2514,12 @@ void init_printer_values(struct loadparm_context *lp_ctx, TALLOC_CTX *ctx,
 
 		tmp = lpcfg_parm_string(lp_ctx, NULL, "vlp", "tdbfile");
 		if (tmp == NULL) {
-			tmp = "/tmp/vlp.tdb";
+			tmp = "@TERMUX_PREFIX@/tmp/vlp.tdb";
 		}
 
 		tdbfile = talloc_asprintf(tmp_ctx, "tdbfile=%s", tmp);
 		if (tdbfile == NULL) {
-			tdbfile="tdbfile=/tmp/vlp.tdb";
+			tdbfile="tdbfile=@TERMUX_PREFIX@/tmp/vlp.tdb";
 		}
 
 		tmp = talloc_asprintf(tmp_ctx, "vlp %s print %%p %%s",

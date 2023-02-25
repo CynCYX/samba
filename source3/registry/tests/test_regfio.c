@@ -65,7 +65,7 @@ static int setup_context_tempfile(void **state)
 	if (ret == 0) {
 		test_ctx = talloc_get_type_abort(*state, struct test_ctx);
 
-		test_ctx->tmp_regfile = talloc_strdup(test_ctx, "/tmp/regfio.XXXXXX");
+		test_ctx->tmp_regfile = talloc_strdup(test_ctx, "@TERMUX_PREFIX@/tmp/regfio.XXXXXX");
 		assert_non_null(test_ctx->tmp_regfile);
 
 		test_ctx->tmp_regfile_fd = mkstemp(test_ctx->tmp_regfile);

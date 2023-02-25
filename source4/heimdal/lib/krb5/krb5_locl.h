@@ -303,7 +303,7 @@ typedef struct krb5_context_data {
 } krb5_context_data;
 
 #ifndef KRB5_USE_PATH_TOKENS
-#define KRB5_DEFAULT_CCNAME_FILE "FILE:/tmp/krb5cc_%{uid}"
+#define KRB5_DEFAULT_CCNAME_FILE "FILE:@TERMUX_PREFIX@/tmp/krb5cc_%{uid}"
 #else
 #define KRB5_DEFAULT_CCNAME_FILE "FILE:%{TEMP}/krb5cc_%{uid}"
 #endif
