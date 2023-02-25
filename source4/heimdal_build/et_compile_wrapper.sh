@@ -43,6 +43,7 @@ cd "${DESTDIR}" && {
 	mv "${SOURCE}" "${TMP}" && {
 		echo "#include \"config.h\"" > "${SOURCE}" && {
 			cat "${TMP}" >> "${SOURCE}"
+			sed -i 's/link/link_et/g' "${SOURCE}" || :
 		}
 	}
 	rm -f "${TMP}"
