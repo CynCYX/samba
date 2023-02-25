@@ -201,19 +201,6 @@ static NSS_STATUS fill_pwent(struct passwd *result,
 	result->pw_uid = pw->pw_uid;
 	result->pw_gid = pw->pw_gid;
 
-	/* GECOS */
-	len = strlen(pw->pw_gecos) + 1;
-
-	if ((result->pw_gecos =
-	     get_static(buffer, buflen, len)) == NULL) {
-
-		/* Out of memory */
-
-		return NSS_STATUS_TRYAGAIN;
-	}
-
-	memcpy(result->pw_gecos, pw->pw_gecos, len);
-
 	/* Home directory */
 	len = strlen(pw->pw_dir) + 1;
 

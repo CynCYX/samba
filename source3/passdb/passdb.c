@@ -149,21 +149,10 @@ static NTSTATUS samu_set_unix_internal(struct pdb_methods *methods,
 
 	fullname = NULL;
 
-	if (count_commas(pwd->pw_gecos) == 3) {
-		/*
-		 * Heuristic: This seems to be a gecos field that has been
-		 * edited by chfn(1). Only use the part before the first
-		 * comma. Fixes bug 5198.
-		 */
-		fullname = talloc_strndup(
-			talloc_tos(), pwd->pw_gecos,
-			strchr(pwd->pw_gecos, ',') - pwd->pw_gecos);
-	}
-
 	if (fullname != NULL) {
 		pdb_set_fullname(user, fullname, PDB_SET);
 	} else {
-		pdb_set_fullname(user, pwd->pw_gecos, PDB_SET);
+		pdb_set_fullname(user, pwd->pw_name, PDB_SET);
 	}
 	TALLOC_FREE(fullname);
 

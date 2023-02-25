@@ -182,7 +182,7 @@ static bool wbinfo_get_userinfo(char *user)
 		 pwd->pw_passwd,
 		 (unsigned int)pwd->pw_uid,
 		 (unsigned int)pwd->pw_gid,
-		 pwd->pw_gecos,
+		 pwd->pw_name,
 		 pwd->pw_dir,
 		 pwd->pw_shell);
 
@@ -209,7 +209,7 @@ static bool wbinfo_get_uidinfo(int uid)
 		 pwd->pw_passwd,
 		 (unsigned int)pwd->pw_uid,
 		 (unsigned int)pwd->pw_gid,
-		 pwd->pw_gecos,
+		 pwd->pw_name,
 		 pwd->pw_dir,
 		 pwd->pw_shell);
 
@@ -237,7 +237,7 @@ static bool wbinfo_get_user_sidinfo(const char *sid_str)
 		 pwd->pw_passwd,
 		 (unsigned int)pwd->pw_uid,
 		 (unsigned int)pwd->pw_gid,
-		 pwd->pw_gecos,
+		 pwd->pw_name,
 		 pwd->pw_dir,
 		 pwd->pw_shell);
 

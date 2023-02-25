@@ -117,9 +117,6 @@ static void wb_getpwsid_queryuser_done(struct tevent_req *subreq)
 
 	strlcpy(pw->pw_name, output_username, sizeof(pw->pw_name));
 
-	strlcpy(pw->pw_gecos, info->full_name ? info->full_name : "",
-		sizeof(pw->pw_gecos));
-
 	tmp = talloc_sub_specified(
 		state, info->homedir, acct_name,
 		info->primary_group_name, info->domain_name,

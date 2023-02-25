@@ -84,7 +84,7 @@ static NTSTATUS authunix_make_user_info_dc(TALLOC_CTX *mem_ctx,
 	user_info_dc->user_session_key = data_blob(NULL,0);
 	user_info_dc->lm_session_key = data_blob(NULL,0);
 
-	info->full_name = talloc_steal(info, pwd->pw_gecos);
+	info->full_name = talloc_strdup(info, pwd->pw_name); /* XXX: I _think_ talloc_steal here for pw_name would be wrong */
 	NT_STATUS_HAVE_NO_MEMORY(info->full_name);
 	info->logon_script = talloc_strdup(info, "");
 	NT_STATUS_HAVE_NO_MEMORY(info->logon_script);
@@ -133,8 +133,6 @@ static NTSTATUS talloc_getpwnam(TALLOC_CTX *ctx, const char *username, struct pa
 
         ret->pw_uid = from->pw_uid;
         ret->pw_gid = from->pw_gid;
-        ret->pw_gecos = talloc_strdup(ctx, from->pw_gecos);
-	NT_STATUS_HAVE_NO_MEMORY(ret->pw_gecos);
 
         ret->pw_dir = talloc_strdup(ctx, from->pw_dir);
 	NT_STATUS_HAVE_NO_MEMORY(ret->pw_dir);
