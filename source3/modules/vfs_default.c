@@ -3512,9 +3512,7 @@ static struct tevent_req *vfswrap_getxattrat_send(
 		 */
 		have_per_thread_cwd = per_thread_cwd_supported();
 	}
-#ifdef HAVE_LINUX_THREAD_CREDENTIALS
 	have_per_thread_creds = true;
-#endif
 	if (have_per_thread_cwd && have_per_thread_creds) {
 		do_async = true;
 	}

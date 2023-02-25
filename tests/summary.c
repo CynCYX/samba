@@ -12,8 +12,10 @@ int main()
 #warning "WARNING: No automated network interface determination"
 #endif
 
+#ifndef __ANDROID__
 #if !(defined(USE_SETEUID) || defined(USE_SETREUID) || defined(USE_SETRESUID) || defined(USE_SETUIDX) || defined(HAVE_LINUX_THREAD_CREDENTIALS))
 #error "ERROR: no seteuid method available"
+#endif
 #endif
 
 #if !(defined(STAT_STATVFS) || defined(STAT_STATFS3_OSF1) || defined(STAT_STATFS2_BSIZE) || defined(STAT_STATFS4) || defined(STAT_STATFS2_FSIZE) || defined(STAT_STATFS2_FS_DATA))

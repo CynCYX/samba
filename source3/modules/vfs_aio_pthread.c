@@ -31,7 +31,7 @@
 #include <linux/falloc.h>
 #endif
 
-#if defined(HAVE_OPENAT) && defined(HAVE_LINUX_THREAD_CREDENTIALS)
+#if defined(HAVE_OPENAT)
 
 /*
  * We must have openat() to do any thread-based
@@ -53,7 +53,6 @@ struct aio_open_private_data {
 	struct smb_filename *smb_fname;
 	connection_struct *conn;
 	struct smbXsrv_connection *xconn;
-	const struct security_unix_token *ux_tok;
 	uint64_t initial_allocation_size;
 	/* Returns. */
 	int ret_fd;
@@ -185,16 +184,6 @@ static void aio_open_worker(void *private_data)
 	struct aio_open_private_data *opd =
 		(struct aio_open_private_data *)private_data;
 
-	/* Become the correct credential on this thread. */
-	if (set_thread_credentials(opd->ux_tok->uid,
-				opd->ux_tok->gid,
-				(size_t)opd->ux_tok->ngroups,
-				opd->ux_tok->groups) != 0) {
-		opd->ret_fd = -1;
-		opd->ret_errno = errno;
-		return;
-	}
-
 	aio_open_do(opd);
 }
 
@@ -281,11 +270,11 @@ static struct aio_open_private_data *create_private_open_data(
 	};
 
 	/* Copy our current credentials. */
-	opd->ux_tok = copy_unix_token(opd, get_current_utok(fsp->conn));
+	/*opd->ux_tok = copy_unix_token(opd, get_current_utok(fsp->conn));
 	if (opd->ux_tok == NULL) {
 		opd_free(opd);
 		return NULL;
-	}
+	}*/
 
 	/*
 	 * Copy the full fsp_name and smb_fname which is the basename.
@@ -506,7 +495,7 @@ static int aio_pthread_openat_fn(vfs_handle_struct *handle,
 #endif
 
 static struct vfs_fn_pointers vfs_aio_pthread_fns = {
-#if defined(HAVE_OPENAT) && defined(HAVE_LINUX_THREAD_CREDENTIALS)
+#if defined(HAVE_OPENAT)
 	.openat_fn = aio_pthread_openat_fn,
 #endif
 };

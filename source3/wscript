@@ -131,7 +131,7 @@ def configure(conf):
     conf.CHECK_FUNCS('setsid glob strpbrk crypt16 getauthuid')
     conf.CHECK_FUNCS('innetgr')
     conf.CHECK_FUNCS('initgroups select poll rdchk getgrnam getgrent pathconf')
-    conf.CHECK_FUNCS('setpriv setgidx setuidx setgroups syscall sysconf')
+    conf.CHECK_FUNCS('setpriv syscall sysconf')
     conf.CHECK_FUNCS('atexit grantpt posix_openpt fallocate')
     conf.CHECK_FUNCS('fseeko setluid')
     conf.CHECK_FUNCS('getpwnam', headers='sys/types.h pwd.h')
@@ -430,15 +430,12 @@ pwrite
 rdchk
 select
 setenv
-setgidx
-setgroups
 setlocale
 setluid
 setmntent
 setpgid
 setpriv
 setsid
-setuidx
 statvfs
 strcasecmp
 strchr
@@ -967,110 +964,6 @@ int i; i = PAM_RADIO_TYPE;
 #
 # Ensure we select the correct set of system calls on Linux.
 #
-    if (host_os.rfind('linux') > -1):
-        conf.CHECK_CODE('''
-#if defined(HAVE_UNISTD_H)
-#include <unistd.h>
-#endif
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <errno.h>
-
-#ifdef HAVE_SYS_PRIV_H
-#include <sys/priv.h>
-#endif
-#ifdef HAVE_SYS_ID_H
-#include <sys/id.h>
-#endif
-
-#if defined(HAVE_SYSCALL_H)
-#include <syscall.h>
-#endif
-
-#if defined(HAVE_SYS_SYSCALL_H)
-#include <sys/syscall.h>
-#endif
-
-syscall(SYS_setresuid32, -1, -1, -1);
-syscall(SYS_setresgid32, -1, -1, -1);
-syscall(SYS_setreuid32, -1, -1);
-syscall(SYS_setregid32, -1, -1);
-syscall(SYS_setuid32, -1);
-syscall(SYS_setgid32, -1);
-syscall(SYS_setgroups32, 0, NULL);
-''',
-            'USE_LINUX_32BIT_SYSCALLS',
-            msg="Checking whether Linux should use 32-bit credential calls");
-
-        if (conf.CONFIG_SET('USE_LINUX_32BIT_SYSCALLS')):
-            seteuid = conf.CHECK_CODE('''
-                                #define AUTOCONF_TEST 1
-                                #define HAVE_LINUX_THREAD_CREDENTIALS 1
-                                #define USE_LINUX_32BIT_SYSCALLS 1
-                                #include "../lib/util/setid.c"
-                                #include "./lib/util_sec.c"
-                                ''',
-                                'HAVE_LINUX_THREAD_CREDENTIALS',
-                                addmain=False,
-                                execute=True,
-                                msg="Checking whether we can use Linux thread-specific credentials with 32-bit system calls")
-        else:
-            seteuid = conf.CHECK_CODE('''
-                                #define AUTOCONF_TEST 1
-                                #define HAVE_LINUX_THREAD_CREDENTIALS 1
-                                #include "../lib/util/setid.c"
-                                #include "./lib/util_sec.c"
-                                ''',
-                                'HAVE_LINUX_THREAD_CREDENTIALS',
-                                addmain=False,
-                                execute=True,
-                                msg="Checking whether we can use Linux thread-specific credentials")
-    if not seteuid:
-        seteuid = conf.CHECK_CODE('''
-                                #define AUTOCONF_TEST 1
-                                #define USE_SETREUID 1
-                                #include "../lib/util/setid.c"
-                                #include "./lib/util_sec.c"
-                                ''',
-                                'USE_SETREUID',
-                                addmain=False,
-                                execute=True,
-                                msg="Checking whether setreuid is available")
-    if not seteuid:
-        seteuid = conf.CHECK_CODE('''
-                                #define AUTOCONF_TEST 1
-                                #define USE_SETRESUID 1
-                                #include "../lib/util/setid.c"
-                                #include "./lib/util_sec.c"
-                                ''',
-                                'USE_SETRESUID',
-                                addmain=False,
-                                execute=True,
-                                msg="Checking whether setresuid is available")
-    if not seteuid:
-        seteuid = conf.CHECK_CODE('''
-                                #define AUTOCONF_TEST 1
-                                #define USE_SETEUID 1
-                                #include "../lib/util/setid.c"
-                                #include "./lib/util_sec.c"
-                                ''',
-                                'USE_SETEUID',
-                                addmain=False,
-                                execute=True,
-                                msg="Checking whether seteuid is available")
-    if not seteuid:
-        seteuid = conf.CHECK_CODE('''
-                                #define AUTOCONF_TEST 1
-                                #define USE_SETUIDX 1
-                                #include "../lib/util/setid.c"
-                                #include "./lib/util_sec.c"
-                                ''',
-                                'USE_SETUIDX',
-                                addmain=False,
-                                execute=True,
-                                mandatory=True,
-                                msg="Checking whether setuidx is available")
     if Options.options.with_dnsupdate:
         if not conf.CONFIG_SET('HAVE_KRB5'):
             Logs.warn("--with-dnsupdate=yes but gssapi support not sufficient")

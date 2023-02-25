@@ -1,0 +1,11 @@
+--- source3/modules/vfs_aio_pthread.c
++++ source3/modules/vfs_aio_pthread.c
+@@ -477,7 +466,7 @@ static int aio_pthread_open_fn(vfs_handle_struct *handle,
+ #endif
+ 
+ static struct vfs_fn_pointers vfs_aio_pthread_fns = {
+-#if defined(HAVE_OPENAT) && defined(HAVE_LINUX_THREAD_CREDENTIALS)
++#if defined(HAVE_OPENAT)
+ 	.open_fn = aio_pthread_open_fn,
+ #endif
+ };
