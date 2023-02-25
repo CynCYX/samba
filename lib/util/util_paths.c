@@ -64,6 +64,10 @@ const char *shlib_ext(void)
 	return get_dyn_SHLIBEXT();
 }
 
+#ifndef NSS_BUFLEN_PASSWD
+#define NSS_BUFLEN_PASSWD 1024
+#endif
+
 static char *get_user_home_dir(TALLOC_CTX *mem_ctx)
 {
 	struct passwd pwd = {0};
